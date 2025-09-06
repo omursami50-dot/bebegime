@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Senin İçin 💖</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0b0b10;
+      --card: rgba(255,255,255,0.06);
+      --glass: rgba(255,255,255,0.12);
+      --text: #eef1f7;
+      --muted: #cfd5e3;
+      --primary: #ff6aa0; /* değiştirilebilir ana renk */
+      --accent: #7aa7ff;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--text); background: radial-gradient(1200px 800px at 10% -10%, #231b2a, var(--bg)) fixed;
+      font-family:'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji','Segoe UI Emoji', 'Segoe UI Symbol';
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    /* arkaplan parıltı */
+    .glow{
+      position:fixed; inset:0; pointer-events:none; z-index:0;
+      background:
+        radial-gradient(600px 400px at 80% 10%, rgba(255,106,160,.12), transparent 60%),
+        radial-gradient(500px 300px at 20% 90%, rgba(122,167,255,.12), transparent 60%);
+      filter:saturate(120%);
+    }
+    /* uçuşan kalpler */
+    .hearts {position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:1}
+    .heart{position:absolute; width:16px; height:16px; opacity:.6; animation:float var(--dur) linear infinite;}
+    .heart svg{width:100%; height:100%; fill:var(--primary); filter: drop-shadow(0 0 6px rgba(255,106,160,.35));}
+    @keyframes float{ to{ transform: translateY(-110vh) translateX(var(-- drift)); opacity:0 }}
+
+    header{position:relative; z-index:2}
+    .container{width:min(1100px, 92%); margin:0 auto}
+    nav{display:flex; align-items:center; justify-content:space-between; padding:22px 0}
+    .brand{font-family:'Playfair Display', serif; font-size:26px; letter-spacing:.5px}
+    .brand span{color:var(--primary)}
+    .menu a{margin-left:18px; font-size:14px; color:var(--muted); text-decoration:none; padding:8px 12px; border-radius:999px; transition:.25s}
+    .menu a:hover{background:var(--glass); color:var(--text)}
+
+    .hero{position:relative; z-index:2; padding:60px 0 40px}
+    .hero-inner{display:grid; grid-template-columns:1.2fr .8fr; gap:28px; align-items:center}
+    .badge{display:inline-flex; align-items:center; gap:8px; background:linear-gradient(90deg, rgba(255,106,160,.18), rgba(122,167,255,.18)); border:1px solid rgba(255,255,255,.16); padding:8px 12px; border-radius:999px; font-size:12px}
+    h1{font-family:'Playfair Display', serif; font-size: clamp(36px, 6vw, 64px); line-height:1.1; margin:14px 0 10px}
+    .lead{font-size: clamp(15px, 2.3vw, 18px); color:var(--muted)}
+    .cta{display:flex; gap:12px; margin-top:22px}
+    .btn{border:none; padding:14px 18px; border-radius:14px; font-weight:600; cursor:pointer; transition:.25s; box-shadow:var(--shadow)}
+    .btn-primary{background:linear-gradient(135deg, var(--primary), #ff96b8)}
+    .btn-primary:hover{transform: translateY(-2px) scale(1.01)}
+    .btn-ghost{background:transparent; border:1px solid rgba(255,255,255,.14); color:var(--text)}
+    .card{background:var(--card); backdrop-filter: blur(10px); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius); box-shadow:var(--shadow)}
+    .hero-card{padding:18px}
+    .hero-card img{width:100%; border-radius:16px}
+
+    section{position:relative; z-index:2; padding:40px 0}
+    .section-title{font-size:22px; opacity:.9; margin-bottom:12px}
+
+    /* Galeri */
+    .grid{display:grid; gap:16px}
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .media{overflow:hidden}
+    .media img{width:100%; height:220px; object-fit:cover; display:block; transition: transform .35s ease}
+    .media:hover img{transform: scale(1.04)}
+
+    /* Zaman çizelgesi */
+    .timeline{position:relative; margin-top:8px}
+    .timeline:before{content:""; position:absolute; left:22px; top:0; bottom:0; width:2px; background:linear-gradient(var(--primary), transparent)}
+    .event{display:grid; grid-template-columns:50px 1fr; gap:12px; margin:10px 0}
+    .dot{width:14px; height:14px; margin-left:16px; border-radius:50%; background:var(--primary); box-shadow:0 0 0 4px rgba(255,106,160,.18)}
+    .event .card{padding:12px}
+
+    /* Mektup */
+    .letter{padding:20px}
+    .letter h3{margin:0 0 8px}
+    .letter p{margin:0}
+
+    /* Sayaç */
+    .countdown{display:flex; gap:10px}
+    .unit{min-width:86px; text-align:center; padding:12px 10px}
+    .unit b{display:block; font-size:28px}
+    .unit span{font-size:12px; color:var(--muted)}
+
+    /* Alıntı döngüsü */
+    .quote{font-family:'Playfair Display', serif; font-size: clamp(18px, 3vw, 26px); text-align:center; padding:26px;}
+
+    footer{padding:40px 0 60px; text-align:center; color:var(--muted)}
+
+    /* responsive */
+    @media (max-width: 900px){
+      .hero-inner{grid-template-columns:1fr}
+      .grid-3{grid-template-columns:repeat(2,1fr)}
+      .media img{height:180px}
+    }
+    @media (max-width: 600px){
+      .grid-3{grid-template-columns:1fr}
+      .unit{min-width:74px}
+    }
+  </style>
+</head>
+<body>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">Senin <span>İçin</span></div>
+        <div class="menu">
+          <a href="#anilar">Anılar</a>
+          <a href="#tarih">Zaman Çizelgesi</a>
+          <a href="#mektup">Mektup</a>
+          <a href="#sayac">Sayaç</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <div class="badge">💌 Bu sayfa sadece senin için hazırlandı</div>
+          <h1>Üzgün olma, ben hep buradayım.</h1>
+          <p class="lead">Bazen kelimeler zor gelir; o yüzden küçük bir site yaptım. Her satırına <b>sen</b>i koydum. İster fotoğraflarımıza bak, ister mektubumu oku — yeter ki gülümse. 💖</p>
+          <div class="cta">
+            <button class="btn btn-primary" id="loveBtn">Seni Seviyorum</button>
+            <a class="btn btn-ghost" href="#mektup">Mektubu Aç</a>
+          </div>
+        </div>
+        <aside class="card hero-card">
+         <img src="images/foto7.jpg" alt="Bizim fotoğrafımız"/>
+
+          <div style="padding:10px 6px 4px; color:var(--muted); font-size:13px">— Bizim gökyüzümüz hep aynı 💫</div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="anilar">
+      <div class="container">
+        <h2 class="section-title">Anılarımız</h2>
+        <div class="grid grid-3">
+          <figure class="card media"><img src="images/foto1.jpg" alt="Bizim fotoğrafımız 1"/></figure>
+<figure class="card media"><img src="images/foto2.jpg" alt="Bizim fotoğrafımız 2"/></figure>
+<figure class="card media"><img src="images/foto3.jpg" alt="Bizim fotoğrafımız 3"/></figure>
+<figure class="card media"><img src="images/foto4.jpg" alt="Bizim fotoğrafımız 4"/></figure>
+<figure class="card media"><img src="images/foto5.jpg" alt="Bizim fotoğrafımız 5"/></figure>
+<figure class="card media"><img src="images/foto6.jpg" alt="Bizim fotoğrafımız 6"/></figure>
+</div>
+</div>
+</section>
+
+    <section id="tarih">
+      <div class="container">
+        <h2 class="section-title">Zaman Çizelgesi</h2>
+        <div class="timeline">
+          <div class="event">
+            <div class="dot"></div>
+            <div class="card"><strong>İlk Mesaj</strong><div style="color:var(--muted); font-size:14px">"Manifest mi önsezi mi" deyip kalbime girdin 💘</div></div>
+          </div>
+          <div class="event">
+            <div class="dot"></div>
+            <div class="card"><strong>İlk Buluşma</strong><div style="color:var(--muted); font-size:14px">Eceme rağmen çok güzeldi.</div></div>
+          </div>
+          <div class="event">
+            <div class="dot"></div>
+            <div class="card"><strong>Biz Olduk</strong><div style="color:var(--muted); font-size:14px">Seninle olduğum her gün, en sevdiğim gün oldu.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mektup">
+      <div class="container">
+        <h2 class="section-title">Mektup</h2>
+        <article class="card letter">
+          <h3>Sevgili Sude,</h3>
+          <p>Canın sıkkın olduğunda, bu sayfaya bak ve hatırla: yalnız değilsin. Ben varım. Elini tutan, gülüşünü seven o kişi hâlâ burada. Bugün zor geçtiyse, yarını birlikte kolaylaştırırız.</p>
+          <p style="margin-top:10px">İyi ki varsın. İyi ki <em>biz</em> varız. 💗</p>
+          <p style="margin-top:18px">— <span id="signature">Ömür</span></p>
+        </article>
+      </div>
+    </section>
+
+    <section id="sayac">
+      <div class="container">
+        <h2 class="section-title">Bir Sonraki Buluşmamıza</h2>
+        <div class="card" style="padding:16px">
+          <div class="countdown" id="countdown" aria-live="polite"></div>
+          <div style="margin-top:12px; color:var(--muted); font-size:13px">Tarihi değiştirmek için kodda <code>NEXT_DATE</code> değerini güncelle.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <blockquote class="card quote" id="quote">"Seni her gün ilk kez seviyorum."</blockquote>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <small>© <span id="year"></span> — Sadece sen gülümsesen yeter</small>
+    </div>
+  </footer>
+
+  <!-- Küçük JS sihirleri -->
+  <script>
+    // ===== Ayarlar =====
+    const HER_NAME = "Sude"; // buraya ismini yaz
+    const YOUR_NAME = "Ömür";     // imza
+    const NEXT_DATE = "2025-09-15T00:00:00"; // bir sonraki buluşma tarihi (YYYY-MM-DDTHH:mm:ss)
+    const QUOTES = [
+      "Her şey sende güzel.",
+      "Kötü günler geçer, biz kalırız.",
+      "Sana bakmak, en sevdiğim manzara.",
+      "Yanındayken dünya sessizleşiyor.",
+      "Sen gül, gerisini hallederiz."
+    ];
+
+    // Başlık/İmza
+    document.title = `${HER_NAME} için 💖`;
+    document.getElementById('signature').textContent = YOUR_NAME;
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Uçuşan kalpler oluşturma
+    const hearts = document.getElementById('hearts');
+    for(let i=0;i<28;i++){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.style.left = Math.random()*100 + 'vw';
+      h.style.bottom = (-10 + Math.random()*30) + 'vh';
+      h.style.setProperty('--dur', (12 + Math.random()*14) + 's');
+      h.style.setProperty('--drift', (Math.random()*80 - 40) + 'px');
+      h.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.35-10-8.35C-1 8.35 3 3 7.5 5.5 9 6.3 10 7.8 12 9.5c2-1.7 3-3.2 4.5-4C21 3 25 8.35 22 12.65 19 16.65 12 21 12 21z"/></svg>`;
+      hearts.appendChild(h);
+    }
+
+    // "Seni Seviyorum" butonu: minik kalp patlaması
+    const loveBtn = document.getElementById('loveBtn');
+    loveBtn.addEventListener('click', (e) => {
+      burst(e.clientX, e.clientY);
+    });
+
+    function burst(x, y){
+      const N = 16;
+      for(let i=0;i<N;i++){
+        const s = document.createElement('div');
+        s.className='heart';
+        s.style.left = x + 'px';
+        s.style.top = y + 'px';
+        s.style.opacity = 1;
+        s.style.setProperty('--dur', .9 + Math.random()*0.8 + 's');
+        s.style.setProperty('--drift', (Math.random()*300 - 150) + 'px');
+        s.innerHTML = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-4.35-10-8.35C-1 8.35 3 3 7.5 5.5 9 6.3 10 7.8 12 9.5c2-1.7 3-3.2 4.5-4C21 3 25 8.35 22 12.65 19 16.65 12 21 12 21z"/></svg>`;
+        document.body.appendChild(s);
+        setTimeout(()=> s.remove(), 1200);
+      }
+    }
+
+    // Sayaç
+    const countdownEl = document.getElementById('countdown');
+    function updateCountdown(){
+      const target = new Date(NEXT_DATE).getTime();
+      const now = Date.now();
+      const diff = Math.max(0, target - now);
+      const d = Math.floor(diff/86400000);
+      const h = Math.floor((diff%86400000)/3600000);
+      const m = Math.floor((diff%3600000)/60000);
+      const s = Math.floor((diff%60000)/1000);
+      countdownEl.innerHTML = box(d,'Gün') + box(h,'Saat') + box(m,'Dakika') + box(s,'Saniye');
+    }
+    function box(value, label){
+      return `<div class="card unit"><b>${String(value).padStart(2,'0')}</b><span>${label}</span></div>`;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Dönen alıntılar
+    const quoteEl = document.getElementById('quote');
+    let qi = 0;
+    setInterval(()=>{
+      qi = (qi+1)%QUOTES.length;
+      quoteEl.style.opacity = 0;
+      setTimeout(()=>{
+        quoteEl.textContent = `"${QUOTES[qi]}"`;
+        quoteEl.style.opacity = 1;
+      }, 250);
+    }, 3500);
+  </script>
+</body>
+</html>
